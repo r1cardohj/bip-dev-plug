@@ -11,7 +11,7 @@ https://github.com/user-attachments/assets/2f6c26c2-098e-47e7-9480-ead4d7fd0d15
 * ✨一键修复本地开发时经常错误的前端路径，自动去匹配NCHOME中的静态文件
 * 如果没跑路还会有其他feature
 
-## 安装方法
+## Install
 
 ### 通过源码安装
 
