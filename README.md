@@ -8,7 +8,7 @@ https://github.com/user-attachments/assets/2f6c26c2-098e-47e7-9480-ead4d7fd0d15
 
 ## Features
 
-* ✨修复本地开发时经常错误的前端路径，自动需要找NCHOME中的静态文件
+* ✨一键修复本地开发时经常错误的前端路径，自动去匹配NCHOME中的静态文件
 * 如果没跑路还会有其他feature
 
 ## About
@@ -19,3 +19,4 @@ https://github.com/user-attachments/assets/2f6c26c2-098e-47e7-9480-ead4d7fd0d15
 
 
 后续可能会加入数据字典跳转功能，但是谁说的准呢？说不定就跑路了。如果有人希望一起做这个repo，可以开issue咱们讨论一波。
+
