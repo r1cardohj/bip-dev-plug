@@ -43,6 +43,7 @@ function checkAndFixIframes() {
             
             if (iframeDoc && iframeDoc.readyState === 'complete') {
                 // 查找错误提示
+                console.log(iframeDoc)
                 const errorDiv = iframeDoc.querySelector('div[align="center"]');
                 if (errorDiv && errorDiv.textContent.includes('抱歉，您请求的页面出错啦！')) {
                     console.log("找到错误提示:", errorDiv.textContent);
@@ -103,6 +104,26 @@ function checkAndFixIframes() {
         }
     }
     
+    function findAllIframes(root = document, level = 0, result = []) {
+        const iframes = root.querySelectorAll('iframe');
+        
+        iframes.forEach(iframe => {
+            result.push(iframe);
+            
+            try {
+                // 尝试访问嵌套的 iframe
+                if (iframe.contentDocument) {
+                    findAllIframes(iframe.contentDocument, level + 1, result);
+                }
+            } catch (e) {
+                // 跨域限制，无法访问嵌套内容
+                console.log(`无法访问第 ${level + 1} 层 iframe 内容（跨域限制）`);
+            }
+        });
+        
+        return result;
+    }
+
     // 显示结果通知
     function showResult(foundErrors, fixedIframes) {
         const existingDiv = document.getElementById('bip-dev-tools-result');
@@ -168,10 +189,10 @@ function checkAndFixIframes() {
     }
     
     // 检查所有 iframe
-    const iframes = document.querySelectorAll('iframe');
-    console.log(`找到 ${iframes.length} 个 iframe`);
+    const allIframes = findAllIframes()
+    console.log(`find ${allIframes.length} iframe(nest)`)
     
-    iframes.forEach((iframe, index) => {
+    allIframes.forEach((iframe, index) => {
         console.log(`检查第 ${index + 1} 个 iframe:`, iframe.src || 'no src');
         
         if (iframe.contentWindow && iframe.contentDocument) {
