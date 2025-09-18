@@ -40,13 +40,22 @@ function checkAndFixIframes() {
                 console.log("无法访问 iframe 文档（跨域限制）");
                 return false;
             }
-            
+
+            console.log(iframeDoc.querySelector('html>body>pre'))
+
             if (iframeDoc && iframeDoc.readyState === 'complete') {
                 // 查找错误提示
-                console.log(iframeDoc)
                 const errorDiv = iframeDoc.querySelector('div[align="center"]');
                 if (errorDiv && errorDiv.textContent.includes('抱歉，您请求的页面出错啦！')) {
                     console.log("找到错误提示:", errorDiv.textContent);
+                    return true;
+                }
+
+                const errorPre = iframeDoc.querySelector('html>body>pre')
+
+                if (errorPre && errorPre.textContent.includes('Cannot GET')) {
+                    console.log("找到错误提示:", errorPre.textContent);
+
                     return true;
                 }
                 
@@ -65,7 +74,6 @@ function checkAndFixIframes() {
         
         return false;
     }
-    
     // 修复 iframe src
     function fixIframeSrc(iframe) {
         const currentSrc = iframe.src;
